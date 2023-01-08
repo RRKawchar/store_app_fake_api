@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:store_app_api/constants/global_colors.dart';
 import 'package:store_app_api/widgets/appbar_icons.dart';
+import 'package:store_app_api/widgets/feeds_widget.dart';
 import 'package:store_app_api/widgets/sale_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -76,25 +77,48 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: lightIconsColor,
                     )),
               ),
-              SizedBox(
-                height: size.height * 0.25,
-                child: Swiper(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return const SaleWidget();
-                  },
-                  pagination: const SwiperPagination(
-                    alignment: Alignment.bottomCenter,
-                    builder: DotSwiperPaginationBuilder(
-                      activeColor: Colors.red,
-                      color: Colors.white,
-                    ),
+              Expanded(
+                child: SingleChildScrollView(
+                 scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.25,
+                        child: Swiper(
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return const SaleWidget();
+                          },
+                          pagination: const SwiperPagination(
+                            alignment: Alignment.bottomCenter,
+                            builder: DotSwiperPaginationBuilder(
+                              activeColor: Colors.red,
+                              color: Colors.white,
+                            ),
 
+                          ),
+                          autoplay: true,
+                          // control: SwiperControl(),
+                        ),
+                      ),
+                      GridView.builder (
+                          shrinkWrap: true,
+                          physics:const NeverScrollableScrollPhysics(),
+                          itemCount: 10,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 0.0,
+                              crossAxisSpacing: 0.0,
+                              childAspectRatio: 0.6
+                          ), itemBuilder: (context,index){
+                        return const FeedsWidget();
+                      })
+                    ],
                   ),
-                  autoplay: true,
-                  // control: SwiperControl(),
                 ),
               ),
+
+
             ],
           ),
         ),
