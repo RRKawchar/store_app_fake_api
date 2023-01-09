@@ -5,8 +5,10 @@ import 'package:page_transition/page_transition.dart';
 import 'package:store_app_api/constants/global_colors.dart';
 import 'package:store_app_api/screens/product_details_screen.dart';
 
-class FeedsWidget extends StatelessWidget {
-  const FeedsWidget({Key? key}) : super(key: key);
+class ProductWidget extends StatelessWidget {
+
+  final String imageUrl,title;
+  const ProductWidget({Key? key, required this.imageUrl, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,31 +50,37 @@ class FeedsWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: FancyShimmerImage(
-                  height: size.height * 0.2,
-                  width: double.infinity,
-                  errorWidget: const Icon(
-                    IconlyBold.danger,
-                    color: Colors.red,
-                    size: 28,
+              Flexible(
+                flex: 3,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: FancyShimmerImage(
+                    height: size.height * 0.2,
+                    width: double.infinity,
+                    errorWidget: const Icon(
+                      IconlyBold.danger,
+                      color: Colors.red,
+                      size: 28,
+                    ),
+                    imageUrl:
+                      imageUrl,
+                    boxFit: BoxFit.fill,
                   ),
-                  imageUrl:
-                      "https://tse4.mm.bing.net/th?id=OIP.d-7UFbAaPsT2y3dYpaKm1AHaFb&pid=Api&P=0",
-                  boxFit: BoxFit.fill,
                 ),
               ),
               const SizedBox(height: 10),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Title",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-                ),
+               Flexible(
+                 flex: 1,
+                 child: Padding(
+                  padding:const EdgeInsets.all(8.0),
+                  child: Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style:const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                  ),
               ),
+               ),
               SizedBox(
                 height: size.height * 0.01,
               )

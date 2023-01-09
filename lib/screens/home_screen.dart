@@ -2,12 +2,16 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:store_app_api/constants/api_constants.dart';
 import 'package:store_app_api/constants/global_colors.dart';
+import 'package:store_app_api/models/all_product_model.dart';
 import 'package:store_app_api/screens/categories_screen.dart';
-import 'package:store_app_api/screens/feed_screen.dart';
+import 'package:store_app_api/screens/all_product_screen.dart';
 import 'package:store_app_api/screens/user_screen.dart';
+import 'package:store_app_api/services/api_handler.dart';
 import 'package:store_app_api/widgets/appbar_icons.dart';
-import 'package:store_app_api/widgets/feeds_widget.dart';
+import 'package:store_app_api/widgets/product_grid_view.dart';
+import 'package:store_app_api/widgets/product_widget.dart';
 import 'package:store_app_api/widgets/sale_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +24,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _textEditingController;
 
+  // List<AllProductModel> productList=[];
+
   @override
   void initState() {
     _textEditingController = TextEditingController();
@@ -31,7 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
     _textEditingController.dispose();
     super.dispose();
   }
-
+  // @override
+  // void didChangeDependencies() {
+  //    getProduct();
+  //   super.didChangeDependencies();
+  // }
+  //
+  // Future<void> getProduct()async{
+  //   productList=await ApiHandler.getProduct(BASE_URL,ALL_PRODUCT_URL);
+  //   setState(() {});
+  // }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -126,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           children: [
                             const Text(
-                              "Latest Product",
+                              "All Products",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 18),
                             ),
@@ -136,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                       context,
                                       PageTransition(
-                                        child: const FeedsScreen(),
+                                        child: const AllProdcutScreen(),
                                         type: PageTransitionType.fade,
                                       ));
                                 },
@@ -144,19 +159,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 10,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 0.0,
-                                  crossAxisSpacing: 0.0,
-                                  childAspectRatio: 0.7),
-                          itemBuilder: (context, index) {
-                            return const FeedsWidget();
-                          },)
+                    FutureBuilder<List<AllProductModel>>(
+                      future: ApiHandler.getProduct(BASE_URL, ALL_PRODUCT_URL),
+                      builder: (context,snapshot){
+                      if(snapshot.connectionState==ConnectionState.waiting){
+                        return const  Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }else if(snapshot.hasError){
+                        return Center(
+                          child: Text("An error occured ${snapshot.error}"),
+                        );
+                      }
+                      else if(snapshot.data==null){
+                        return const Center(
+                          child: Text("No product has been added yet"),
+                        );
+                      }
+                      return ProductGridView(productList: snapshot.data!);
+                    },)
                     ],
                   ),
                 ),
