@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store_app_api/constants/global_colors.dart';
 import 'package:store_app_api/screens/home_screen.dart';
+import 'package:store_app_api/screens/product_details_screen.dart';
 
 void main() {
   runApp(const MyApp());
