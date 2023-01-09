@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:store_app_api/constants/global_colors.dart';
 import 'package:store_app_api/screens/categories_screen.dart';
 import 'package:store_app_api/screens/feed_screen.dart';
+import 'package:store_app_api/screens/user_screen.dart';
 import 'package:store_app_api/widgets/appbar_icons.dart';
 import 'package:store_app_api/widgets/feeds_widget.dart';
 import 'package:store_app_api/widgets/sale_widget.dart';
@@ -48,13 +49,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   PageTransition(
                     child: const CategoriesScreen(),
                     type: PageTransitionType.fade,
-                  ));
+                  ),);
             },
             icon: IconlyBold.category,
           ),
           actions: [
             AppbarIcons(
-              function: () {},
+              function: () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                      child: const UserScreen(),
+                      type: PageTransitionType.fade,
+                    ),);
+              },
               icon: IconlyBold.user3,
             )
           ],
@@ -64,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               const SizedBox(
-                height: 18,
+                height: 18
               ),
               TextField(
                 controller: _textEditingController,
@@ -86,6 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.search,
                       color: lightIconsColor,
                     )),
+              ),
+              const SizedBox(
+                  height: 18
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -142,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 0.0,
                                   crossAxisSpacing: 0.0,
-                                  childAspectRatio: 0.6),
+                                  childAspectRatio: 0.7),
                           itemBuilder: (context, index) {
                             return const FeedsWidget();
                           },)

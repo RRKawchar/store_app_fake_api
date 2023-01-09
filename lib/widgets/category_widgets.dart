@@ -10,39 +10,36 @@ class CategoryWidget extends StatelessWidget {
     final size=MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        color: Colors.blue,
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: FancyShimmerImage(
-                height: size.width * 0.45,
-                width: size.width * 0.45,
-                errorWidget: const Icon(
-                  IconlyBold.danger,
-                  color: Colors.red,
-                  size: 28,
-                ),
-                imageUrl:
-                "https://tse4.mm.bing.net/th?id=OIP.d-7UFbAaPsT2y3dYpaKm1AHaFb&pid=Api&P=0",
-                boxFit: BoxFit.fill,
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: FancyShimmerImage(
+              height: size.width * 0.45,
+              width: size.width * 0.45,
+              errorWidget: const Icon(
+                IconlyBold.danger,
+                color: Colors.red,
+                size: 28,
               ),
+              imageUrl:
+              "https://tse4.mm.bing.net/th?id=OIP.d-7UFbAaPsT2y3dYpaKm1AHaFb&pid=Api&P=0",
+              boxFit: BoxFit.fill,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Text("Product name",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                backgroundColor: lightCardColor.withOpacity(0.5),
-                fontSize: 24,
-                fontWeight: FontWeight.bold
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Text("Product name",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              backgroundColor: lightCardColor.withOpacity(0.5),
+              fontSize: 24,
+              fontWeight: FontWeight.bold
 
-              ),
-              ),
-            )
-          ],
-        ),
+            ),
+            ),
+          )
+        ],
       ),
     );
   }
