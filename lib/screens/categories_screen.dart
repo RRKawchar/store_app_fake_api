@@ -32,8 +32,8 @@ class CategoriesScreen extends StatelessWidget {
               );
             }
             return GridView.builder(
-              // shrinkWrap: true,
-              // physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshot.data!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

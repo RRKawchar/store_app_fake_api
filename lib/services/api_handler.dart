@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:store_app_api/constants/api_constants.dart';
 import 'package:store_app_api/models/all_product_model.dart';
 import 'package:store_app_api/models/categories_model.dart';
+import 'package:store_app_api/models/users_model.dart';
 class ApiHandler{
 
 
@@ -35,6 +36,11 @@ class ApiHandler{
    var jsonData=CategoriesModel.categoriesFromSnapshot(temp);
    return jsonData;
 
-
  }
+    static Future<List<UsersModel>> getUsers({required String subUrl})async{
+      List temp= await getData(subUrl: subUrl);
+      var jsonData=UsersModel.usersFromSnapshot(temp);
+      return jsonData;
+
+    }
 }

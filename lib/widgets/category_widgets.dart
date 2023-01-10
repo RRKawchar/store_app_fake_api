@@ -30,16 +30,20 @@ class CategoryWidget extends StatelessWidget {
               boxFit: BoxFit.fill,
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(categoryProvider.name.toString(),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              backgroundColor: lightCardColor.withOpacity(0.5),
-              fontSize: 24,
-              fontWeight: FontWeight.bold
+          Positioned(
+            top: 70,
+            left: 40,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(categoryProvider.name.toString(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                backgroundColor: lightCardColor.withOpacity(0.5),
+                fontSize: 24,
+                fontWeight: FontWeight.bold
 
-            ),
+              ),
+              ),
             ),
           )
         ],

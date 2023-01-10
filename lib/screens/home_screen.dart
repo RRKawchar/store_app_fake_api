@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   PageTransition(
-                    child: const CategoriesScreen(),
+                    child:  CategoriesScreen(),
                     type: PageTransitionType.fade,
                   ),);
             },
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                     context,
                     PageTransition(
-                      child: const UserScreen(),
+                      child: const UsersScreen(),
                       type: PageTransitionType.fade,
                     ),);
               },
