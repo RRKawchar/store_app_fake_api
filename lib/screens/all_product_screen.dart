@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_app_api/constants/api_constants.dart';
@@ -13,20 +15,43 @@ class AllProdcutScreen extends StatefulWidget {
 }
 
 class _AllProdcutScreenState extends State<AllProdcutScreen> {
-
+final ScrollController _scrollController= ScrollController();
   List<AllProductModel> productList=[];
+
+  int limit=10;
+  bool _isLoading =false;
+  bool _isLimit=false;
 
   @override
   void didChangeDependencies() {
-      getProduct();
     super.didChangeDependencies();
+
+    // _scrollController.addListener(()async{
+    //   if(_scrollController.position.pixels==_scrollController.position.maxScrollExtent){
+    //     _isLoading=true;
+    //     log("limit $limit");
+    //     limit +=10;
+    //     await getProduct();
+    //     _isLoading=false;
+    //   }
+    // });
+
+    getProduct();
   }
+
+
   Future<void> getProduct()async{
 
-    productList=await ApiHandler.getAllProduct(subUrl:ALL_PRODUCT_URL);
+    productList=await ApiHandler.getAllProduct(subUrl:ALL_PRODUCT_URL,limit: limit.toString());
     setState(() {
 
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,8 +64,8 @@ class _AllProdcutScreenState extends State<AllProdcutScreen> {
       body:productList.isEmpty?const Center(
         child: CircularProgressIndicator(),
       ): GridView.builder (
-          // shrinkWrap: true,
-          // physics:const NeverScrollableScrollPhysics(),
+           // shrinkWrap: true,
+           //  physics:const NeverScrollableScrollPhysics(),
           itemCount: productList.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
