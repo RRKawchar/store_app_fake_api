@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:store_app_api/constants/api_constants.dart';
 import 'package:store_app_api/models/all_product_model.dart';
 import 'package:store_app_api/services/api_handler.dart';
@@ -22,7 +23,7 @@ class _AllProdcutScreenState extends State<AllProdcutScreen> {
   }
   Future<void> getProduct()async{
 
-    productList=await ApiHandler.getProduct(BASE_URL, ALL_PRODUCT_URL);
+    productList=await ApiHandler.getAllProduct(subUrl:ALL_PRODUCT_URL);
     setState(() {
 
     });
@@ -47,10 +48,10 @@ class _AllProdcutScreenState extends State<AllProdcutScreen> {
               crossAxisSpacing: 0.0,
               childAspectRatio: 0.7
           ), itemBuilder: (context,index){
-        return ProductWidget(
-             imageUrl: productList[index].images![0],
-             title: productList[index].title.toString(),
-        );
+        return ChangeNotifierProvider.value(
+
+            value: productList[index],
+            child: const ProductWidget());
       }),
     );
   }

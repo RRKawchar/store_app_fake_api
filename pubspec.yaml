@@ -41,6 +41,7 @@ dependencies:
   fancy_shimmer_image: ^2.0.2
   page_transition: ^2.0.9
   http: ^0.13.5
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:

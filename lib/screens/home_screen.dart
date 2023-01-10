@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     FutureBuilder<List<AllProductModel>>(
-                      future: ApiHandler.getProduct(BASE_URL, ALL_PRODUCT_URL),
+                      future: ApiHandler.getAllProduct(subUrl:ALL_PRODUCT_URL),
                       builder: (context,snapshot){
                       if(snapshot.connectionState==ConnectionState.waiting){
                         return const  Center(

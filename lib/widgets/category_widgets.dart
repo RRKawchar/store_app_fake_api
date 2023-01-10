@@ -1,13 +1,16 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 import 'package:store_app_api/constants/global_colors.dart';
+import 'package:store_app_api/models/categories_model.dart';
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
+    final categoryProvider=Provider.of<CategoriesModel>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
@@ -23,13 +26,13 @@ class CategoryWidget extends StatelessWidget {
                 size: 28,
               ),
               imageUrl:
-              "https://tse4.mm.bing.net/th?id=OIP.d-7UFbAaPsT2y3dYpaKm1AHaFb&pid=Api&P=0",
+              categoryProvider.image.toString(),
               boxFit: BoxFit.fill,
             ),
           ),
           Align(
             alignment: Alignment.center,
-            child: Text("Product name",
+            child: Text(categoryProvider.name.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(
               backgroundColor: lightCardColor.withOpacity(0.5),

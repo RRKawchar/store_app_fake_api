@@ -2,16 +2,19 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:store_app_api/constants/global_colors.dart';
+import 'package:store_app_api/models/all_product_model.dart';
 import 'package:store_app_api/screens/product_details_screen.dart';
 
 class ProductWidget extends StatelessWidget {
 
-  final String imageUrl,title;
-  const ProductWidget({Key? key, required this.imageUrl, required this.title}) : super(key: key);
+  const ProductWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final AllProductModel allProductModelProvider=Provider.of<AllProductModel>(context);
     final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -40,7 +43,7 @@ class ProductWidget extends StatelessWidget {
                                 ),
                             children: [
                           TextSpan(
-                              text: "168.00",
+                              text: "${allProductModelProvider.price}",
                               style: TextStyle(
                                   color: lightTextColor,
                                   fontWeight: FontWeight.w600))
@@ -63,7 +66,7 @@ class ProductWidget extends StatelessWidget {
                       size: 28,
                     ),
                     imageUrl:
-                      imageUrl,
+                      allProductModelProvider.images![0],
                     boxFit: BoxFit.fill,
                   ),
                 ),
@@ -74,7 +77,7 @@ class ProductWidget extends StatelessWidget {
                  child: Padding(
                   padding:const EdgeInsets.all(8.0),
                   child: Text(
-                    title,
+                    allProductModelProvider.title.toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style:const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
