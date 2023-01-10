@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:store_app_api/constants/api_constants.dart';
@@ -10,18 +11,25 @@ class ApiHandler{
 
     static Future<List<dynamic>> getData({required String subUrl})async{
 
-      var uri=Uri.https(BASE_URL,subUrl);
-      var response=await http.get(uri);
-      // print("Response : ${jsonDecode(response.body)}");
+      try{
+        var uri=Uri.https(BASE_URL,subUrl);
+        var response=await http.get(uri);
+        // print("Response : ${jsonDecode(response.body)}");
+        var data = jsonDecode(response.body);
+        if(response.statusCode != 200){
+          throw data['message'];
+        }
 
-      var data = jsonDecode(response.body);
-      List tempList=[];
-      for(var v in data){
-        tempList.add(v);
+        List tempList=[];
+        for(var v in data){
+          tempList.add(v);
 
+        }
+
+        return tempList;
+      }catch(error){
+        throw error.toString();
       }
-
-      return tempList;
 
     }
 
@@ -46,14 +54,21 @@ class ApiHandler{
 
     static Future<AllProductModel> getProductById({required String id})async{
 
-      var uri=Uri.https(BASE_URL,"$ALL_PRODUCT_URL/$id");
-      var response=await http.get(uri);
-      // print("Response : ${jsonDecode(response.body)}");
+     try{
+       var uri=Uri.https(BASE_URL,"$ALL_PRODUCT_URL/$id");
+       var response=await http.get(uri);
+       // print("Response : ${jsonDecode(response.body)}");
 
-      var data = jsonDecode(response.body);
+       var data = jsonDecode(response.body);
+       if(response.statusCode !=200){
+         throw data['message'];
+       }
+
+       return AllProductModel.fromJson(data);
 
 
-      return AllProductModel.fromJson(data);
-
+     }catch(error){
+       throw error.toString();
+     }
     }
 }

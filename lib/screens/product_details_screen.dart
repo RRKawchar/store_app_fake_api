@@ -17,12 +17,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final textStyle = const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
   AllProductModel? productList;
-
+  bool isError=false;
+  String errorStr="";
   Future<void> getProductInfo()async{
+      try{
 
-    productList=await ApiHandler.getProductById(id: widget.id);
+        productList=await ApiHandler.getProductById(id:widget.id);
+
+      }catch(error){
+        isError=true;
+        errorStr=error.toString();
+       throw error.toString();
+      }
+
     setState(() {
-
     });
   }
 
@@ -40,7 +48,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
       ),
       body: SafeArea(
-        child:productList==null?const Center(
+        child:isError? Center(
+          child: Text("An error occured $errorStr",style:const TextStyle(
+            fontSize: 20,fontWeight: FontWeight.w700
+          ),),
+        ):productList==null?const Center(
           child: CircularProgressIndicator(),
         ): SingleChildScrollView(
           child: Column(
