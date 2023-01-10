@@ -43,4 +43,17 @@ class ApiHandler{
       return jsonData;
 
     }
+
+    static Future<AllProductModel> getProductById({required String id})async{
+
+      var uri=Uri.https(BASE_URL,"$ALL_PRODUCT_URL/$id");
+      var response=await http.get(uri);
+      // print("Response : ${jsonDecode(response.body)}");
+
+      var data = jsonDecode(response.body);
+
+
+      return AllProductModel.fromJson(data);
+
+    }
 }

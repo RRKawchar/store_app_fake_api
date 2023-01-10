@@ -2,9 +2,12 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app_api/constants/global_colors.dart';
+import 'package:store_app_api/models/all_product_model.dart';
+import 'package:store_app_api/services/api_handler.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({Key? key}) : super(key: key);
+  final String id;
+  const ProductDetailsScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -12,6 +15,23 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final textStyle = const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
+
+  AllProductModel? productList;
+
+  Future<void> getProductInfo()async{
+
+    productList=await ApiHandler.getProductById(id: widget.id);
+    setState(() {
+
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    getProductInfo();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -20,7 +40,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
+        child:productList==null?const Center(
+          child: CircularProgressIndicator(),
+        ): SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,9 +53,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Category",
-                      style: TextStyle(
+                     Text(
+                      productList!.category!.name.toString(),
+                      style:const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 20,
                       ),
@@ -45,7 +67,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         Flexible(
                           flex: 3,
                           child: Text(
-                            "Lorem Ipsum",
+                            productList!.title.toString(),
                             style: textStyle,
                             textAlign: TextAlign.start,
                           ),
@@ -61,7 +83,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ),
                               children: [
                                 TextSpan(
-                                    text: "168.00",
+                                    text: productList!.price.toString(),
                                     style: TextStyle(
                                         color: lightTextColor,
                                         fontWeight: FontWeight.bold))
@@ -79,7 +101,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           return FancyShimmerImage(
                             width: double.infinity,
                             imageUrl:
-                                "https://tse4.mm.bing.net/th?id=OIP.d-7UFbAaPsT2y3dYpaKm1AHaFb&pid=Api&P=0",
+                                productList!.images![index].toString(),
                             boxFit: BoxFit.fill,
                           );
                         },
@@ -105,15 +127,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             style: textStyle,
                           ),
                           const SizedBox(height: 18),
-                          const Text(
-                            "Lorem Ipsum er rett og slett dummytekst fra og for trykkeindustrien. "
-                            "Lorem Ipsum har vært "
-                            "bransjens standard for dummytekst helt siden 1500-tallet, da en"
-                            " ukjent boktrykker stokket en mengde bokstaver for å lage et prøveeksemplar av en bok. Lorem Ipsum har tålt tidens "
-                            "tann usedvanlig godt, og har i tillegg til å bestå gjennom"
-                            " fem århundrer også tålt spranget over til elektronisk typografi uten vesentlige endringer.",
+                           Text(
+                           productList!.description.toString(),
                             textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25
                           ),)
                         ],

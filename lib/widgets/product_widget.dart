@@ -8,13 +8,12 @@ import 'package:store_app_api/models/all_product_model.dart';
 import 'package:store_app_api/screens/product_details_screen.dart';
 
 class ProductWidget extends StatelessWidget {
-
   const ProductWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    final AllProductModel allProductModelProvider=Provider.of<AllProductModel>(context);
+    final AllProductModel allProductModelProvider =
+        Provider.of<AllProductModel>(context);
     final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -24,7 +23,15 @@ class ProductWidget extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(8.0),
           onTap: () {
-            Navigator.push(context, PageTransition(child:const ProductDetailsScreen(), type: PageTransitionType.fade,),);
+            Navigator.push(
+              context,
+              PageTransition(
+                child: ProductDetailsScreen(
+                  id: allProductModelProvider.id.toString(),
+                ),
+                type: PageTransitionType.fade,
+              ),
+            );
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,25 +72,25 @@ class ProductWidget extends StatelessWidget {
                       color: Colors.red,
                       size: 28,
                     ),
-                    imageUrl:
-                      allProductModelProvider.images![0],
+                    imageUrl: allProductModelProvider.images![0],
                     boxFit: BoxFit.fill,
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-               Flexible(
-                 flex: 1,
-                 child: Padding(
-                  padding:const EdgeInsets.all(8.0),
+              Flexible(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     allProductModelProvider.title.toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style:const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w700),
                   ),
+                ),
               ),
-               ),
               SizedBox(
                 height: size.height * 0.01,
               )

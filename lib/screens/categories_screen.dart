@@ -4,7 +4,6 @@ import 'package:store_app_api/constants/api_constants.dart';
 import 'package:store_app_api/models/categories_model.dart';
 import 'package:store_app_api/services/api_handler.dart';
 import 'package:store_app_api/widgets/category_widgets.dart';
-import 'package:store_app_api/widgets/product_widget.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({Key? key}) : super(key: key);
