@@ -1,17 +1,2 @@
 # store_app_api
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-![](../../Downloads/Zing walls/proble_category.png)
+![Apple iPhone 11 Pro Max Presentation](https://github.com/RRKawchar/store_app_fake_api/assets/97376140/d9bb19c7-b816-4af5-9a32-e906059fd99c)
